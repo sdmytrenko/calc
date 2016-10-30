@@ -1,7 +1,17 @@
 def calculate(str)   # "   2 * ( 2 + 2)"
   str.gsub!(/\s/,'') #Без пробілів "2*(2+2)"
 
- 
+  # Обробляємо дужки
+  str.gsub!(/\((\d+)\*(\d+)\)/){$1.to_i * $2.to_i}
+  str.gsub!(/\((\d+)\/(\d+)\)/){$1.to_i / $2.to_i}
+  str.gsub!(/\((\d+)\+(\d+)\)/){$1.to_i + $2.to_i}
+  str.gsub!(/\((\d+)\-(\d+)\)/){$1.to_i - $2.to_i}
+
+  # Дії без дужок
+  str.gsub!(/(\d+)\*(\d+)/){$1.to_i * $2.to_i}
+  str.gsub!(/(\d+)\/(\d+)/){$1.to_i / $2.to_i}
+  str.gsub!(/(\d+)\+(\d+)/){$1.to_i + $2.to_i}
+  str.gsub!(/(\d+)\-(\d+)/){$1.to_i - $2.to_i}
 
 
 
