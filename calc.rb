@@ -12,10 +12,10 @@ def calculate(expression)   # "   2 * ( 2 + 2)"
   str.gsub!(/(\d+)\-\-(\d+)/){$1.to_i + $2.to_i}
 
   # Правило для першого від’ємного числа
-  str.gsub!(/\-(\d+)\*(\d+)/){-$1.to_i * $2.to_i}
-  str.gsub!(/\-(\d+)\/(\d+)/){-$1.to_i / $2.to_i}
-  str.gsub!(/\-(\d+)\-(\d+)/){-$1.to_i - $2.to_i}
-  str.gsub!(/\-(\d+)\+(\d+)/){-$1.to_i + $2.to_i}
+  str.gsub!(/^\-(\d+)\*(\d+)/){-$1.to_i * $2.to_i}
+  str.gsub!(/^\-(\d+)\/(\d+)/){-$1.to_i / $2.to_i}
+  str.gsub!(/^\-(\d+)\-(\d+)/){-$1.to_i - $2.to_i}
+  str.gsub!(/^\-(\d+)\+(\d+)/){-$1.to_i + $2.to_i}
 
   # Обробляємо дужки
   str.gsub!(/\((\d+)\*(\d+)\)/){$1.to_i * $2.to_i}
