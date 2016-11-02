@@ -1,36 +1,61 @@
-def calculate(expression)   # "   2 * ( 2 + 2)"
+def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
   str = expression.clone
-  str.gsub!(/\s/,'')        # "2*(2+2)"
+  rpn_str = '' # нова строка /масив для перетвореної строки
+  stack = [] # кейс для операторів під час перетворення
 
-  # Правило для додавання від’ємного числа в дужках
-  str.gsub!(/\(\-(\d+)\)/){-$1.to_i}
+  arr_of_elements = str.gsub(/\s/,'').split(//)        # "(2+3)*(4-1)" -> 
+                                      #  ["(", "2", "+", "3", ")", "*", "(", "4", "-", "1", ")"]
+  priority = { "(" => 1, "+" => 2, "-" => 2, "*" => 3, "/" => 3}
 
-    # Правило для будь-якого від’ємного числа
-  str.gsub!(/(\d+)\*\-(\d+)/){-$1.to_i * $2.to_i}
-  str.gsub!(/(\d+)\/\-(\d+)/){-$1.to_i / $2.to_i}
-  str.gsub!(/(\d+)\+\-(\d+)/){$1.to_i - $2.to_i}
-  str.gsub!(/(\d+)\-\-(\d+)/){$1.to_i + $2.to_i}
+  arr_of_elements.each |element| do
+    if ("0".."9").include?(element) # крута фіча
+      rpn_str << element
+    elsif element == '('
+      stack << element
+    elsif stack.empty? || priority[stack.last] < priority[element]
+      stack << element
+    
 
-  # Правило для першого від’ємного числа
-  str.gsub!(/^\-(\d+)\*(\d+)/){-$1.to_i * $2.to_i}
-  str.gsub!(/^\-(\d+)\/(\d+)/){-$1.to_i / $2.to_i}
-  str.gsub!(/^\-(\d+)\-(\d+)/){-$1.to_i - $2.to_i}
-  str.gsub!(/^\-(\d+)\+(\d+)/){-$1.to_i + $2.to_i}
 
-  # Обробляємо дужки
-  str.gsub!(/\((\d+)\*(\d+)\)/){$1.to_i * $2.to_i}
-  str.gsub!(/\((\d+)\/(\d+)\)/){$1.to_i / $2.to_i}
-  str.gsub!(/\((\d+)\+(\d+)\)/){$1.to_i + $2.to_i}
-  str.gsub!(/\((\d+)\-(\d+)\)/){$1.to_i - $2.to_i}
 
-  # Дії без дужок
-  str.gsub!(/(\d+)\*(\d+)/){$1.to_i * $2.to_i}
-  str.gsub!(/(\d+)\/(\d+)/){$1.to_i / $2.to_i}
-  str.gsub!(/(\d+)\+(\d+)/){$1.to_i + $2.to_i}
-  str.gsub!(/(\d+)\-(\d+)/){$1.to_i - $2.to_i}
 
-  return str.to_i
+
+
+
+
+
 end
+
+# на виході має утворитись 23+41-*
+
+
+
+
+
+puts make_rpn("  ( 2 + 3   )* ( 4 - 1)")
+
+
+
+# def calculate(expression)
+#   #   str = expression.clone
+#   # str.gsub!(/\s/,'').split(//)
+#   # aaaa = make_rpn(str)
+#   yield
+
+#   # return str.to_i
+# end
+
+# symbols = %w{ + - / * ( ) }
+# arr.collect! do |c|
+# priority[stack.last] < priority[$1]
+
+
+
+
+
+
+
+
 
 # puts calculate("   2 * ( 2 + 2)") # 8
 # puts calculate(" 4 / (1 + 1) ") # 2
