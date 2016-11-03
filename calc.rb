@@ -114,31 +114,43 @@
 
 
 def calculate(expression)
-  rpn_expression = make_rpn(expression).split(//)
+  rpn_expression = expression.split(//) # make_rpn(expression).split(//)
   stack = [] # Стек для чисел
   rpn_expression.each do |element|
     if element =~ /\d+/
       stack << element
     else
       operands = stack.pop(2) # Вирізаємо 2 останні числа зі стеку
-      case element
+      case
       when element == "*"
-        stack << operands[0] * operands[1]
+        stack << (operands[0].to_i * operands[1].to_i)
       when element == "/"
-        stack << operands[0] / operands[1]
+        stack << (operands[0].to_i / operands[1].to_i)
       when element == "+"
-        stack << operands[0] + operands[1]
+        stack << (operands[0].to_i + operands[1].to_i)
       when element == "-"
-        stack << operands[0] - operands[1]
+        stack << (operands[0].to_i - operands[1].to_i)
       end
+      # print stack
     end
+    # print stack
   end
-  return stack.join.to_i
+
+
+
+  # notation
+  stack.last
+
+  # p rpn_expression.pop # stack.join #.to_i
+  #return stack #pn_expression
 end
 
-puts calculate("23+41-*") # 8
-puts calculate("12-85-23*+4*+") # 35
-puts calculate("12-+") # 0
+print calculate("23+41-*") # -15
+puts
+print calculate("12-85-23*+4*+") # 35
+puts
+print calculate("12-+") # 0
+puts
 
 
 
