@@ -54,18 +54,17 @@ def calculate(expression)
     if element =~ /\d+/
       stack << element
     else
-      operands = stack.pop(2) # Вирізаємо 2 останні числа зі стеку
+      oper1, oper2 = stack.pop(2) # (2.send("+" 3)) Вирізаємо 2 останні числа зі стеку 
+      oper1, oper2 = oper2 ? [oper1, oper2] : [0, oper1]
       case
-      # when (element == "-") && (stack.size == 1)    # 2.send("+", 3) !!!!!
-      #   stack << (0 - operands[0].to_i)
       when element == "*"
-        stack << (operands[0].to_i * operands[1].to_i)
+        stack << (oper1.to_i * oper2.to_i)
       when element == "/"
-        stack << (operands[0].to_i / operands[1].to_i)
+        stack << (oper1.to_i / oper2.to_i)
       when element == "+"
-        stack << (operands[0].to_i + operands[1].to_i)
+        stack << (oper1.to_i + oper2.to_i)
       when element == "-"
-        stack << (operands[0].to_i - operands[1].to_i)
+        stack << (oper1.to_i - oper2.to_i)
       end
     end
   end
