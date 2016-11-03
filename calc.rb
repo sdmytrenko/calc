@@ -33,10 +33,15 @@ end
 
 # на виході має утворитись 23+41-*
 
-puts make_rpn("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
-puts make_rpn("  ( 2 + 3   ) * ( 1 - 4)") # 23+14-*
-# puts make_rpn("1-2+(8-5+2*3)*4") # 1 2 - 8 5 - 2 3 * + 4 * +
-# puts make_rpn("1 + (-2)") # 1 2 - +
+# puts 
+# print make_rpn("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
+# puts 
+# print make_rpn("  ( 2 + 3   ) * ( 1 - 4)") # 23+14-*
+# puts 
+# print make_rpn("1-2+(8-5+2*3)*4") # 1 2 - 8 5 - 2 3 * + 4 * +
+# puts 
+# print make_rpn("1 + (-2)") # 1 2 - +
+# puts
 # puts make_rpn("")
 # puts make_rpn("")
 
@@ -51,6 +56,8 @@ def calculate(expression)
     else
       operands = stack.pop(2) # Вирізаємо 2 останні числа зі стеку
       case
+      # when (element == "-") && (stack.size == 1)    # 2.send("+", 3) !!!!!
+      #   stack << (0 - operands[0].to_i)
       when element == "*"
         stack << (operands[0].to_i * operands[1].to_i)
       when element == "/"
@@ -75,17 +82,23 @@ end
 # print calculate("12-+") # 0
 # puts
 
-puts calculate("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
-puts calculate("  ( 2 + 3   ) * ( 1 - 4)")
-puts make_rpn ("40+2")
-puts make_rpn ("40+3")
-puts make_rpn ("50-10")
-puts make_rpn ("-1-1")
+puts 
+print calculate("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-* 15
+puts 
+print calculate("  ( 2 + 3   ) * ( 1 - 4)") # -15
+puts 
+print calculate("40+2")
+puts 
+print calculate("40+3")
+puts 
+print calculate("50-10")
+puts 
+print calculate("-1-1") #-2
+puts
+print calculate("1 + (-2)") #-1
 
-puts calculate("40+2")
-puts calculate("40+3")
-puts calculate("50-10")
-puts calculate("-1-1")
+puts 
+
 
 # puts calculate("   2 * ( 2 + 2)") # 8
 # puts calculate(" 4 / (1 + 1) ") # 2
