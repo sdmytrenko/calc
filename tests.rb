@@ -41,4 +41,47 @@ describe :calculate do
   it " -1 - 1 = -2" do
     assert_equal (-2), calculate('-1 - 1')
   end
+
+# My own tests:
+
+  it "  ( 2 + 3   ) * ( 4 - 1)" do
+    assert_equal (15), calculate('  ( 2 + 3   ) * ( 4 - 1)')
+  end
+
+  it "  ( 2 + 3   ) * ( 1 - 4)" do
+    assert_equal (-15), calculate('  ( 2 + 3   ) * ( 1 - 4)')
+  end
+
+  it "    1 - 2 + ( 8 - 5 + 2 * 3 ) * 4 " do
+    assert_equal (35), calculate('    1 - 2 + ( 8 - 5 + 2 * 3 ) * 4 ')
+  end
+
+  it "          5 - 10 " do
+    assert_equal (-5), calculate('          5 - 10 ')
+  end
+
+  it " 5 + 2 -10 " do
+    assert_equal (-3), calculate(' 5 + 2 -10 ')
+  end
+
+  it " -1 - 1 + 4 " do
+    assert_equal (2), calculate(' -1 - 1 + 4 ')
+  end
+
+  it " (-4) * 3 + 4 " do
+    assert_equal (-8), calculate(' (-4) * 3 + 4 ')
+  end
+
+  it " 1 + 2 + 3 + 4 + 5 * 6" do
+    assert_equal (40), calculate(' 1 + 2 + 3 + 4 + 5 * 6')
+  end
+
+  it "-5 * 2 /5" do
+    assert_equal (-2), calculate('-5 * 2 /5')
+  end
+
+  it "( -1 - 1) * (5 - (8 - 3) = 0" do
+    assert_equal (0), calculate('( -1 - 1) * (5 - (8 - 3)')
+  end
+
 end
