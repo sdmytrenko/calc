@@ -15,10 +15,10 @@ def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
       stack.pop
     elsif stack.empty? || (priority[stack.last] < priority[element])
       stack << element
-    elsif (priority[stack.last] > priority[element]) || (priority[stack.last] = priority[element])
+    elsif (priority[stack.last] > priority[element]) || 
+          (priority[stack.last] = priority[element])
       rpn_str << stack.pop
       stack << element
-
     end
   end
 
@@ -29,9 +29,11 @@ def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
   return rpn_str  # на виході ['2','3','+','4','1','-','*']
 end
 
+
 def calculate(expression)
   rpn_expression = make_rpn(expression)
   stack = [] # Стек для чисел
+
   rpn_expression.each do |element|
     if element =~ /\d+/
       stack << element
@@ -39,14 +41,10 @@ def calculate(expression)
       oper1, oper2 = stack.pop(2) # (2.send("+" 3)) Вирізаємо 2 останні числа зі стеку 
       oper1, oper2 = oper2 ? [oper1, oper2] : [0, oper1]
       case
-      when element == "*"
-        stack << (oper1.to_i * oper2.to_i)
-      when element == "/"
-        stack << (oper1.to_i / oper2.to_i)
-      when element == "+"
-        stack << (oper1.to_i + oper2.to_i)
-      when element == "-"
-        stack << (oper1.to_i - oper2.to_i)
+      when element == "*" then stack << (oper1.to_i * oper2.to_i)
+      when element == "/" then stack << (oper1.to_i / oper2.to_i)
+      when element == "+" then stack << (oper1.to_i + oper2.to_i)
+      when element == "-" then stack << (oper1.to_i - oper2.to_i)
       end
     end
   end
