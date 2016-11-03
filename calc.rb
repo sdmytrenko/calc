@@ -1,35 +1,35 @@
-# def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
-#   str = expression.clone
-#   rpn_str = '' # нова строка /масив для перетвореної строки
-#   stack = [] # кейс для операторів під час перетворення
+def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
+  str = expression.clone
+  rpn_str = '' # нова строка /масив для перетвореної строки
+  stack = [] # кейс для операторів під час перетворення
 
-#   arr_of_elements = str.gsub(/\s/,'').split(//)        # "(2+3)*(4-1)" -> 
-#                                       #  ["(", "2", "+", "3", ")", "*", "(", "4", "-", "1", ")"]
-#   priority = { "(" => 1, "+" => 2, "-" => 2, "*" => 3, "/" => 3}
+  arr_of_elements = str.gsub(/\s/,'').split(//)        # "(2+3)*(4-1)" -> 
+                                      #  ["(", "2", "+", "3", ")", "*", "(", "4", "-", "1", ")"]
+  priority = { "(" => 1, "+" => 2, "-" => 2, "*" => 3, "/" => 3}
 
-#   arr_of_elements.each do |element| 
-#     if element =~ /\d+/ #("0".."9").include?(element) Круто, но не підходить
-#       rpn_str << element
-#     elsif element == "("
-#       stack << element
-#     elsif element == ")"
-#       rpn_str << stack.pop until priority[stack.last] == 1
-#       stack.pop
-#     elsif stack.empty? || (priority[stack.last] < priority[element])
-#       stack << element
-#     elsif (priority[stack.last] > priority[element]) || (priority[stack.last] = priority[element])
-#       rpn_str << stack.pop
-#       stack << element
+  arr_of_elements.each do |element| 
+    if element =~ /\d+/ #("0".."9").include?(element) Круто, но не підходить
+      rpn_str << element
+    elsif element == "("
+      stack << element
+    elsif element == ")"
+      rpn_str << stack.pop until priority[stack.last] == 1
+      stack.pop
+    elsif stack.empty? || (priority[stack.last] < priority[element])
+      stack << element
+    elsif (priority[stack.last] > priority[element]) || (priority[stack.last] = priority[element])
+      rpn_str << stack.pop
+      stack << element
 
-#     end
-#   end
+    end
+  end
 
-#   while !stack.empty? do
-#      rpn_str << stack.pop
-#   end
+  while !stack.empty? do
+     rpn_str << stack.pop
+  end
 
-#   return rpn_str
-# end
+  return rpn_str  # 23+41-*
+end
 
 
     
@@ -95,7 +95,8 @@
 
 
 
-# puts make_rpn("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
+puts make_rpn("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
+puts make_rpn("  ( 2 + 3   ) * ( 1 - 4)") # 23+14-*
 # puts make_rpn("1-2+(8-5+2*3)*4") # 1 2 - 8 5 - 2 3 * + 4 * +
 # puts make_rpn("1 + (-2)") # 1 2 - +
 # puts make_rpn("")
@@ -114,7 +115,7 @@
 
 
 def calculate(expression)
-  rpn_expression = expression.split(//) # make_rpn(expression).split(//)
+  rpn_expression = make_rpn(expression).split(//) #expression.split(//)
   stack = [] # Стек для чисел
   rpn_expression.each do |element|
     if element =~ /\d+/
@@ -137,20 +138,29 @@ def calculate(expression)
   end
 
 
+  # # until stack.empty? do
+  # #   notation << stack.pop
+  # # end
 
-  # notation
+  # # notation
   stack.last
 
+  # print rpn_expression
+  # aaa = make_rpn(expression)
+  # return aaa
+  # return rpn_expression
   # p rpn_expression.pop # stack.join #.to_i
   #return stack #pn_expression
 end
 
-print calculate("23+41-*") # -15
-puts
-print calculate("12-85-23*+4*+") # 35
-puts
-print calculate("12-+") # 0
-puts
+# print calculate("23+41-*") # -15
+# puts
+# print calculate("23+14-*") # 15
+# puts
+# print calculate("12-85-23*+4*+") # 35
+# puts
+# print calculate("12-+") # 0
+# puts
 
 
 
@@ -171,7 +181,13 @@ puts
 
 
 
+puts calculate("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
+puts calculate("  ( 2 + 3   ) * ( 1 - 4)")
 
+puts calculate("40+2")
+puts calculate("40+3")
+puts calculate("50-10")
+puts calculate("-1-1")
 
 # puts calculate("   2 * ( 2 + 2)") # 8
 # puts calculate(" 4 / (1 + 1) ") # 2
