@@ -14,7 +14,7 @@ def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
       stack << element
     elsif element == ")"
       rpn_str << stack.pop until priority[stack.last] == 1
-
+      stack.pop
     elsif stack.empty? || (priority[stack.last] < priority[element])
       stack << element
     elsif (priority[stack.last] > priority[element]) || (priority[stack.last] = priority[element])
@@ -94,7 +94,11 @@ end
 
 
 
-puts make_rpn("  ( 2 + 3   ) * ( 4 - 1)")
+puts make_rpn("  ( 2 + 3   ) * ( 4 - 1)") # 23+41-*
+puts make_rpn("1-2+(8-5+2*3)*4") # 1 2 - 8 5 - 2 3 * + 4 * +
+# puts make_rpn("")
+# puts make_rpn("")
+# puts make_rpn("")
 
 
 
