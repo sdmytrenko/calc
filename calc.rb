@@ -1,8 +1,7 @@
 def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
-  str = expression.clone
   rpn_str = [] # новий масив для перетвореної строки
   stack = [] # кейс для операторів під час перетворення
-  arr_of_elements = str.gsub(/\s/,'').scan(/\d+|\W/) # Без пробілів і засуваємо посимвольно в масив
+  arr_of_elements = expression.gsub(/\s/,'').scan(/\d+|\W/) # Без пробілів і засуваємо посимвольно в масив
   priority = { "(" => 1, "+" => 2, "-" => 2, "*" => 3, "/" => 3}
 
   arr_of_elements.each do |element| 
@@ -15,8 +14,7 @@ def make_rpn(expression)    # "  ( 2 + 3   )* ( 4 - 1)"
       stack.pop
     elsif stack.empty? || (priority[stack.last] < priority[element])
       stack << element
-    elsif (priority[stack.last] > priority[element]) || 
-          (priority[stack.last] = priority[element])
+    elsif (priority[stack.last] >= priority[element])
       rpn_str << stack.pop
       stack << element
     end
